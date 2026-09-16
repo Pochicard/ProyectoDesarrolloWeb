@@ -1,11 +1,13 @@
 package com.example.demo.repository;
 
-
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entities.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 
-public interface UsuarioRepository  
-        extends JpaRepository<Usuario, Long>{ // Usuario es la entidad y Long es el tipo de su id.
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-} 
+    Optional<Usuario> findByCorreo(String correo);
+}
