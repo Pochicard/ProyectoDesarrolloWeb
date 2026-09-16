@@ -2,32 +2,31 @@ package com.example.demo.service;
 
 import com.example.demo.entities.Pago;
 import com.example.demo.repository.PagoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class PagoServiceImpl implements PagoService {
 
-    // Se usa para consultar pagos desde la capa de servicio.
-    @Autowired 
-    private PagoRepository pagoRepository;
+    private final PagoRepository pagoRepository;
 
     public PagoServiceImpl(PagoRepository pagoRepository) {
         this.pagoRepository = pagoRepository;
     }
 
-    // Devuelve null si el pago no existe, evitando romper la aplicación.
     @Override
     public Pago findById(Integer id) {
         return pagoRepository.findById(id).orElse(null);
     }
 
-    // Entrega todos los pagos disponibles para la vista o futuras consultas.
     @Override
     public Collection<Pago> findAll() {
         return pagoRepository.findAll();
+    }
+
+    @Override
+    public Pago save(Pago pago) {
+        return pagoRepository.save(pago);
     }
 }
