@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.entities.Espacio;
 import com.example.demo.repository.EspacioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +9,11 @@ import java.util.List;
 @Service
 public class EspacioServiceImpl implements EspacioService {
 
-    @Autowired
-    private EspacioRepository espacioRepository;
+    private final EspacioRepository espacioRepository;
+
+    public EspacioServiceImpl(EspacioRepository espacioRepository) {
+        this.espacioRepository = espacioRepository;
+    }
 
     @Override
     public List<Espacio> obtenerTodos() {
