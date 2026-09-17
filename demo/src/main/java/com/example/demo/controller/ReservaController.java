@@ -30,8 +30,8 @@ public class ReservaController {
     @GetMapping("/nueva")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("reserva", new Reserva());
-        model.addAttribute("usuarios", usuarioService.buscarTodos());
-        model.addAttribute("espacios", espacioService.obtenerTodos()); // Método exacto de EspacioService
+        model.addAttribute("usuarios", usuarioService.buscarActivos());
+        model.addAttribute("espacios", espacioService.obtenerActivos());
         return "reserva_form";
     }
     @PostMapping("/guardar")

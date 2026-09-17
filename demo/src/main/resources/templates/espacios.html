@@ -17,6 +17,7 @@
         <th>ID</th>
         <th>Nombre</th>
         <th>Capacidad</th>
+        <th>Estado</th>
         <th>Acciones</th>
     </tr>
     </thead>
@@ -25,13 +26,15 @@
         <td th:text="${e.id}"></td>
         <td th:text="${e.nombre}"></td>
         <td th:text="${e.capacidad}"></td>
+        <td th:text="${e.activo ? 'Activo' : 'Inactivo'}"></td>
         <td>
             <a th:href="@{/admin/espacios/editar/{id}(id=${e.id})}" class="btn btn-warning btn-sm">Editar</a>
-            <a th:href="@{/admin/espacios/eliminar/{id}(id=${e.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este espacio?');">Eliminar</a>
+            <a th:if="${e.activo}" th:href="@{/admin/espacios/desactivar/{id}(id=${e.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Desactivar este espacio?');">Desactivar</a>
+            <a th:unless="${e.activo}" th:href="@{/admin/espacios/activar/{id}(id=${e.id})}" class="btn btn-success btn-sm">Activar</a>
         </td>
     </tr>
     <tr th:if="${#lists.isEmpty(espacios)}">
-        <td colspan="4" class="text-center">No hay espacios registrados.</td>
+        <td colspan="5" class="text-center">No hay espacios registrados.</td>
     </tr>
     </tbody>
 </table>

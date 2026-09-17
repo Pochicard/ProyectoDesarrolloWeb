@@ -21,6 +21,11 @@ public class EspacioServiceImpl implements EspacioService {
     }
 
     @Override
+    public List<Espacio> obtenerActivos() {
+        return espacioRepository.findByActivoTrue();
+    }
+
+    @Override
     public Espacio guardar(Espacio espacio) {
         return espacioRepository.save(espacio);
     }
@@ -31,7 +36,20 @@ public class EspacioServiceImpl implements EspacioService {
     }
 
     @Override
-    public void eliminar(Long id) {
-        espacioRepository.deleteById(id);
+    public void desactivar(Long id) {
+        Espacio espacio = obtenerPorId(id);
+        if (espacio != null) {
+            espacio.setActivo(false);
+            espacioRepository.save(espacio);
+        }
+    }
+
+    @Override
+    public void activar(Long id) {
+        Espacio espacio = obtenerPorId(id);
+        if (espacio != null) {
+            espacio.setActivo(true);
+            espacioRepository.save(espacio);
+        }
     }
 }

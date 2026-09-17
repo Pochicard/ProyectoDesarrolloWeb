@@ -21,6 +21,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public List<Usuario> buscarActivos() {
+        return repo.findByActivoTrue();
+    }
+
+    @Override
     public Usuario buscarPorId(Long id) {
         return repo.findById(id).orElse(null);
     }
