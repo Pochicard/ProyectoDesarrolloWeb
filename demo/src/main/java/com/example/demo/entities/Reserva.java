@@ -1,5 +1,8 @@
 package com.example.demo.entities;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,9 +29,9 @@ public class Reserva {
     @ManyToOne(optional = false)
     private Espacio espacio;
 
-    @Column(nullable = false, length = 20)
-    private String fecha;
+    @Column(nullable = false)
+    private LocalDate fecha;
 
-    @Column(nullable = false, length = 10)
-    private String hora;
+    @Column(nullable = false)
+    private LocalTime hora;
 }

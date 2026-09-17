@@ -26,10 +26,10 @@ INSERT INTO servicio (nombre, descripcion, precio)
 VALUES ('Combo Barbería (Corte + Barba)', 'Servicio completo de corte de cabello y diseño de barba', 45000.0);
 
 INSERT INTO reserva (usuario_id, espacio_id, fecha, hora)
-VALUES (1, 1, '2026-10-15', '10:00 AM');
+VALUES (1, 1, '2026-10-15', '10:00:00');
 
 INSERT INTO reserva (usuario_id, espacio_id, fecha, hora)
-VALUES (2, 3, '2026-10-15', '02:30 PM');
+VALUES (2, 3, '2026-10-15', '14:30:00');
 
 INSERT INTO pago (reserva_id, monto, metodo_pago, estado)
 VALUES (1, 45000.0, 'Efectivo', 'COMPLETADO');

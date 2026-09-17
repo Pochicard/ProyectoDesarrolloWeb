@@ -29,6 +29,7 @@
         <td th:text="${reserva.fecha != null ? reserva.fecha : 'Sin fecha'}"></td>
 
         <td>
+            <a th:href="@{/reservas/{id}(id=${reserva.id})}" class="btn btn-info btn-sm">Ver</a>
             <a th:href="@{/reservas/editar/{id}(id=${reserva.id})}" class="btn btn-warning btn-sm">Editar</a>
             <a th:href="@{/reservas/eliminar/{id}(id=${reserva.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar esta reserva?');">Eliminar</a>
         </td>

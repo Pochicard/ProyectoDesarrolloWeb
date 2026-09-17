@@ -34,6 +34,11 @@ public class ReservaController {
         model.addAttribute("espacios", espacioService.obtenerActivos());
         return "reserva_form";
     }
+    @GetMapping("/{id}")
+    public String verDetalle(@PathVariable Long id, Model model) {
+        model.addAttribute("reserva", reservaService.findById(id));
+        return "reserva_detalle";
+    }
     @PostMapping("/guardar")
     public String guardarReserva(@ModelAttribute("reserva") Reserva reserva) {
         reservaService.save(reserva);
