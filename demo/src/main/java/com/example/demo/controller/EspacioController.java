@@ -35,9 +35,15 @@ public class EspacioController {
         model.addAttribute("espacio", espacioService.obtenerPorId(id));
         return "espacio_form";
     }
-    @GetMapping("/eliminar/{id}")
-    public String eliminarEspacio(@PathVariable Long id) {
-        espacioService.eliminar(id);
+    @GetMapping("/desactivar/{id}")
+    public String desactivarEspacio(@PathVariable Long id) {
+        espacioService.desactivar(id);
+        return "redirect:/admin/espacios";
+    }
+
+    @GetMapping("/activar/{id}")
+    public String activarEspacio(@PathVariable Long id) {
+        espacioService.activar(id);
         return "redirect:/admin/espacios";
     }
 }

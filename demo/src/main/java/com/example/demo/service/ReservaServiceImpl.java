@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entities.Reserva;
+import com.example.demo.repository.PagoRepository;
 import com.example.demo.repository.ReservaRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,11 @@ import java.util.Collection;
 public class ReservaServiceImpl implements ReservaService {
 
     private final ReservaRepository reservaRepository;
+    private final PagoRepository pagoRepository;
 
-    public ReservaServiceImpl(ReservaRepository reservaRepository) {
+    public ReservaServiceImpl(ReservaRepository reservaRepository, PagoRepository pagoRepository) {
         this.reservaRepository = reservaRepository;
+        this.pagoRepository = pagoRepository;
     }
 
     @Override
@@ -32,6 +35,9 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public void deleteById(Long id) {
+        // El pago tiene una FK obligatoria hacia la reserva: hay que borrarlo antes
+        // o la eliminación de la reserva falla por violación de integridad referencial.
+        pagoRepository.findByReservaId(id).ifPresent(pagoRepository::delete);
         reservaRepository.deleteById(id);
     }
 }

@@ -5,7 +5,9 @@ import java.util.List;
 
 public interface EspacioService {
     List<Espacio> obtenerTodos();
+    List<Espacio> obtenerActivos();
     Espacio guardar(Espacio espacio);
     Espacio obtenerPorId(Long id);
-    void eliminar(Long id);
+    void desactivar(Long id);
+    void activar(Long id);
 }

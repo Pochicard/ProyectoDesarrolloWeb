@@ -4,17 +4,17 @@ VALUES ('Santiago Martínez', 'santiago@example.com', '3001234567', true);
 INSERT INTO usuario (nombre, correo, telefono, activo)
 VALUES ('Ana Gómez', 'ana@example.com', '3019876543', true);
 
-INSERT INTO espacio (nombre, capacidad, precio_base)
-VALUES ('Silla Barbería Principal', 1, 25000.0);
+INSERT INTO espacio (nombre, capacidad, precio_base, activo)
+VALUES ('Silla Barbería Principal', 1, 25000.0, true);
 
-INSERT INTO espacio (nombre, capacidad, precio_base)
-VALUES ('Estación Lavacabezas', 1, 15000.0);
+INSERT INTO espacio (nombre, capacidad, precio_base, activo)
+VALUES ('Estación Lavacabezas', 1, 15000.0, true);
 
-INSERT INTO espacio (nombre, capacidad, precio_base)
-VALUES ('Sillón Grooming / VIP', 1, 40000.0);
+INSERT INTO espacio (nombre, capacidad, precio_base, activo)
+VALUES ('Sillón Grooming / VIP', 1, 40000.0, true);
 
-INSERT INTO espacio (nombre, capacidad, precio_base)
-VALUES ('Cabina de Estética / Spa', 1, 35000.0);
+INSERT INTO espacio (nombre, capacidad, precio_base, activo)
+VALUES ('Cabina de Estética / Spa', 1, 35000.0, true);
 
 INSERT INTO servicio (nombre, descripcion, precio)
 VALUES ('Corte de Cabello Tradicional', 'Corte con tijera o máquina y acabado con navaja', 30000.0);

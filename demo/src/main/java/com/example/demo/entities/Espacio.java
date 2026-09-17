@@ -27,4 +27,7 @@ public class Espacio {
 
     @Column(nullable = false)
     private Double precioBase;
+
+    @Column(nullable = false)
+    private Boolean activo = true;
 }
