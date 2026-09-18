@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entities.Reserva;
+import com.example.demo.exception.RecursoNoEncontradoException;
 import com.example.demo.service.EspacioService;
 import com.example.demo.service.ReservaService;
 import com.example.demo.service.UsuarioService;
@@ -45,7 +46,11 @@ public class ReservaController {
     }
     @GetMapping("/{id}")
     public String verDetalle(@PathVariable Long id, Model model) {
-        model.addAttribute("reserva", reservaService.findById(id));
+        Reserva reserva = reservaService.findById(id);
+        if (reserva == null) {
+            throw new RecursoNoEncontradoException("No existe una reserva con id " + id);
+        }
+        model.addAttribute("reserva", reserva);
         return "reserva_detalle";
     }
     @PostMapping("/guardar")
@@ -60,9 +65,13 @@ public class ReservaController {
     }
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
-        model.addAttribute("reserva", reservaService.findById(id));
+        Reserva reserva = reservaService.findById(id);
+        if (reserva == null) {
+            throw new RecursoNoEncontradoException("No existe una reserva con id " + id);
+        }
+        model.addAttribute("reserva", reserva);
         model.addAttribute("usuarios", usuarioService.buscarTodos());
-        model.addAttribute("espacios", espacioService.obtenerTodos()); // Método exacto de EspacioService
+        model.addAttribute("espacios", espacioService.obtenerTodos());
         return "reserva_form";
     }
     @GetMapping("/eliminar/{id}")
