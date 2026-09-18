@@ -5,7 +5,10 @@ import com.example.demo.service.EspacioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/espacios")
@@ -15,8 +18,13 @@ public class EspacioController {
     private EspacioService espacioService;
 
     @GetMapping
-    public String listarEspacios(Model model) {
-        model.addAttribute("espacios", espacioService.obtenerTodos());
+    public String listarEspacios(@RequestParam(required = false) Integer capacidadMinima, Model model) {
+        if (capacidadMinima != null) {
+            model.addAttribute("espacios", espacioService.obtenerPorCapacidadMinima(capacidadMinima));
+        } else {
+            model.addAttribute("espacios", espacioService.obtenerTodos());
+        }
+        model.addAttribute("capacidadMinima", capacidadMinima);
         return "espacios";
     }
     @GetMapping("/nuevo")
@@ -26,7 +34,10 @@ public class EspacioController {
     }
 
     @PostMapping("/guardar")
-    public String guardarEspacio(@ModelAttribute("espacio") Espacio espacio) {
+    public String guardarEspacio(@Valid @ModelAttribute("espacio") Espacio espacio, BindingResult result) {
+        if (result.hasErrors()) {
+            return "espacio_form";
+        }
         espacioService.guardar(espacio);
         return "redirect:/admin/espacios";
     }

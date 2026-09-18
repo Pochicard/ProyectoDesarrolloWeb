@@ -11,6 +11,19 @@
     <a th:href="@{/admin/espacios/nuevo}" class="btn btn-primary">Nuevo Espacio</a>
 </div>
 
+<form th:action="@{/admin/espacios}" method="get" class="row g-2 align-items-center mb-4">
+    <div class="col-auto">
+        <label class="col-form-label">Capacidad mínima:</label>
+    </div>
+    <div class="col-auto">
+        <input type="number" name="capacidadMinima" th:value="${capacidadMinima}" min="1" class="form-control" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+        <a th:href="@{/admin/espacios}" class="btn btn-outline-secondary">Ver todos</a>
+    </div>
+</form>
+
 <table class="table table-striped table-bordered">
     <thead class="table-dark">
     <tr>

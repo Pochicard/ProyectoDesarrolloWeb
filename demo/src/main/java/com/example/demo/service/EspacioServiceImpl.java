@@ -26,6 +26,11 @@ public class EspacioServiceImpl implements EspacioService {
     }
 
     @Override
+    public List<Espacio> obtenerPorCapacidadMinima(Integer capacidadMinima) {
+        return espacioRepository.buscarPorCapacidadMinima(capacidadMinima);
+    }
+
+    @Override
     public Espacio guardar(Espacio espacio) {
         return espacioRepository.save(espacio);
     }
