@@ -14,8 +14,9 @@
             </div>
             <div class="card-body">
                 <form th:action="@{/admin/espacios/guardar}" th:object="${espacio}" method="post">
-                    <!-- ID oculto para edición -->
+                    <!-- ID y estado ocultos para que la edición no pise estos valores -->
                     <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{activo}" />
 
                     <!-- Campo Nombre -->
                     <div class="mb-3">
