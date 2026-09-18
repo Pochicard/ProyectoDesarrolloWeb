@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entities.Usuario;
+import com.example.demo.exception.RecursoNoEncontradoException;
 import com.example.demo.service.UsuarioService;
 
 import jakarta.validation.Valid;
@@ -48,7 +49,11 @@ public class UsuarioController {
     // Busca el usuario por id para cargar sus datos en el formulario de edición.
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
-        model.addAttribute("usuario", service.buscarPorId(id));
+        Usuario usuario = service.buscarPorId(id);
+        if (usuario == null) {
+            throw new RecursoNoEncontradoException("No existe un usuario con id " + id);
+        }
+        model.addAttribute("usuario", usuario);
         return "vista_usuario";
     }
     

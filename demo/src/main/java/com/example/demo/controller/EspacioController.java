@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entities.Espacio;
+import com.example.demo.exception.RecursoNoEncontradoException;
 import com.example.demo.service.EspacioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,11 @@ public class EspacioController {
     }
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
-        model.addAttribute("espacio", espacioService.obtenerPorId(id));
+        Espacio espacio = espacioService.obtenerPorId(id);
+        if (espacio == null) {
+            throw new RecursoNoEncontradoException("No existe un espacio con id " + id);
+        }
+        model.addAttribute("espacio", espacio);
         return "espacio_form";
     }
     @GetMapping("/desactivar/{id}")
