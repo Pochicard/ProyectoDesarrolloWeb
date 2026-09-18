@@ -29,6 +29,11 @@ public class ReservaServiceImpl implements ReservaService {
     }
 
     @Override
+    public Collection<Reserva> findByUsuarioId(Long usuarioId) {
+        return reservaRepository.findByUsuarioId(usuarioId);
+    }
+
+    @Override
     public Reserva save(Reserva reserva) {
         return reservaRepository.save(reserva);
     }

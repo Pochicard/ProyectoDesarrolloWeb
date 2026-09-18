@@ -14,12 +14,11 @@
       <input type="hidden" th:field="*{activo}" />
       <label>Nombre:</label>
       <input type="text" th:field="*{nombre}" required />
+      <div style="color: red;" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
       <br />
       <label>Correo:</label>
       <input type="email" th:field="*{correo}" required />
-      <br />
-      <label>Empresa:</label>
-      <input type="text" th:field="*{empresa}" />
+      <div style="color: red;" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
       <br />
       <label>Teléfono:</label>
       <input type="text" th:field="*{telefono}" />

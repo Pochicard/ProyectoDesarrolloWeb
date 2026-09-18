@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entities.Usuario;
 import com.example.demo.service.UsuarioService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -34,7 +37,10 @@ public class UsuarioController {
 
     // Guarda los datos enviados desde el formulario y vuelve al listado.
     @PostMapping("/guardar")
-    public String guardar(@ModelAttribute Usuario usuario) {
+    public String guardar(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result) {
+        if (result.hasErrors()) {
+            return "vista_usuario";
+        }
         service.guardar(usuario);
         return "redirect:/usuarios";
     }
