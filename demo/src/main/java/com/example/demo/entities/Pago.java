@@ -15,13 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class Pago {
-    // Guarda la información del pago asociado a una reserva.
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // Cada pago pertenece a una reserva concreta.
     @OneToOne(optional = false)
     private Reserva reserva;
 
