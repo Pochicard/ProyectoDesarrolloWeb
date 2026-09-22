@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entities.Pago;
+import com.example.demo.exception.PagoDuplicadoException;
 import com.example.demo.repository.PagoRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,31 @@ public class PagoServiceImpl implements PagoService {
     }
 
     @Override
+    public Pago findByReservaId(Long reservaId) {
+        return pagoRepository.findByReservaId(reservaId).orElse(null);
+    }
+
+    @Override
     public Collection<Pago> findAll() {
         return pagoRepository.findAll();
     }
 
     @Override
     public Pago save(Pago pago) {
+        if (reservaYaTienePago(pago)) {
+            throw new PagoDuplicadoException("La reserva seleccionada ya tiene un pago registrado.");
+        }
         return pagoRepository.save(pago);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        pagoRepository.deleteById(id);
+    }
+
+    private boolean reservaYaTienePago(Pago pago) {
+        return pagoRepository.findByReservaId(pago.getReserva().getId())
+                .filter(existente -> !existente.getId().equals(pago.getId()))
+                .isPresent();
     }
 }

@@ -26,6 +26,25 @@
                 <p><strong>Fecha:</strong> <span th:text="${reserva.fecha}"></span></p>
                 <p><strong>Hora:</strong> <span th:text="${reserva.hora}"></span></p>
 
+                <hr>
+
+                <p><strong>Estado del pago:</strong>
+                    <span th:if="${pago != null}" class="badge"
+                          th:classappend="${pago.estado == 'COMPLETADO'} ? 'bg-success' : 'bg-warning text-dark'"
+                          th:text="${pago.estado}"></span>
+                    <span th:if="${pago == null}" class="badge bg-secondary">SIN PAGO</span>
+                </p>
+                <p th:if="${pago != null}"><strong>Monto:</strong>
+                    <span th:text="${'$' + #numbers.formatDecimal(pago.monto, 0, 'POINT', 2, 'COMMA')}"></span>
+                </p>
+                <p th:if="${pago != null}"><strong>Método:</strong>
+                    <span th:text="${pago.metodoPago}"></span>
+                </p>
+                <a th:if="${pago == null}" th:href="@{/pagos/nuevo(reservaId=${reserva.id})}"
+                   class="btn btn-success">Registrar pago</a>
+                <a th:unless="${pago == null}" th:href="@{/pagos/editar/{id}(id=${pago.id})}"
+                   class="btn btn-outline-success">Editar pago</a>
+
                 <div class="d-flex justify-content-between mt-4">
                     <a th:href="@{/reservas}" class="btn btn-secondary">Volver al listado</a>
                     <a th:href="@{/reservas/editar/{id}(id=${reserva.id})}" class="btn btn-warning">Editar</a>

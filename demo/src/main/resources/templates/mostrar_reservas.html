@@ -36,6 +36,7 @@
         <th>Usuario</th>
         <th>Espacio</th>
         <th>Fecha</th>
+        <th>Pago</th>
         <th>Acciones</th>
     </tr>
     </thead>
@@ -45,15 +46,25 @@
         <td th:text="${reserva.usuario != null ? reserva.usuario.nombre : 'Sin usuario'}"></td>
         <td th:text="${reserva.espacio != null ? reserva.espacio.nombre : 'Sin espacio'}"></td>
         <td th:text="${reserva.fecha != null ? reserva.fecha : 'Sin fecha'}"></td>
+        <td>
+            <span th:if="${pagos[reserva.id] != null}" class="badge"
+                  th:classappend="${pagos[reserva.id].estado == 'COMPLETADO'} ? 'bg-success' : 'bg-warning text-dark'"
+                  th:text="${pagos[reserva.id].estado}"></span>
+            <span th:if="${pagos[reserva.id] == null}" class="badge bg-secondary">SIN PAGO</span>
+        </td>
 
         <td>
+            <a th:if="${pagos[reserva.id] == null}" th:href="@{/pagos/nuevo(reservaId=${reserva.id})}"
+               class="btn btn-success btn-sm">Pagar</a>
+            <a th:unless="${pagos[reserva.id] == null}" th:href="@{/pagos/editar/{id}(id=${pagos[reserva.id].id})}"
+               class="btn btn-outline-success btn-sm">Ver pago</a>
             <a th:href="@{/reservas/{id}(id=${reserva.id})}" class="btn btn-info btn-sm">Ver</a>
             <a th:href="@{/reservas/editar/{id}(id=${reserva.id})}" class="btn btn-warning btn-sm">Editar</a>
             <a th:href="@{/reservas/eliminar/{id}(id=${reserva.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar esta reserva?');">Eliminar</a>
         </td>
     </tr>
     <tr th:if="${#lists.isEmpty(reservas)}">
-        <td colspan="5" class="text-center">No hay reservas registradas.</td>
+        <td colspan="6" class="text-center">No hay reservas registradas.</td>
     </tr>
     </tbody>
 </table>

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entities.Reserva;
+import com.example.demo.exception.EspacioNoDisponibleException;
 import com.example.demo.repository.PagoRepository;
 import com.example.demo.repository.ReservaRepository;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,10 @@ public class ReservaServiceImpl implements ReservaService {
 
     @Override
     public Reserva save(Reserva reserva) {
+        if (estaOcupado(reserva)) {
+            throw new EspacioNoDisponibleException(
+                    "El espacio ya tiene una reserva para esa fecha y hora. Elige otro horario.");
+        }
         return reservaRepository.save(reserva);
     }
 
@@ -44,5 +49,12 @@ public class ReservaServiceImpl implements ReservaService {
         // o la eliminación de la reserva falla por violación de integridad referencial.
         pagoRepository.findByReservaId(id).ifPresent(pagoRepository::delete);
         reservaRepository.deleteById(id);
+    }
+
+    private boolean estaOcupado(Reserva reserva) {
+        return reservaRepository
+                .findByEspacioIdAndFechaAndHora(reserva.getEspacio().getId(), reserva.getFecha(), reserva.getHora())
+                .stream()
+                .anyMatch(existente -> !existente.getId().equals(reserva.getId()));
     }
 }
