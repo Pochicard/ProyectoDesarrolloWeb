@@ -3,7 +3,7 @@
 <body>
 <nav th:fragment="nav" class="navbar navbar-expand navbar-dark bg-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}">Barbería de Rocío</a>
+        <a class="navbar-brand" th:href="@{/}">BarberBook.com</a>
 
         <ul class="navbar-nav me-auto" th:if="${session.usuario != null}">
             <li class="nav-item" th:if="${session.usuario.rol.name() == 'ADMINISTRADOR'}">
