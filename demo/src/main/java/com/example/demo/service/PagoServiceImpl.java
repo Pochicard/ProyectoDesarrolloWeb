@@ -6,6 +6,7 @@ import com.example.demo.repository.PagoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class PagoServiceImpl implements PagoService {
@@ -29,6 +30,11 @@ public class PagoServiceImpl implements PagoService {
     @Override
     public Collection<Pago> findAll() {
         return pagoRepository.findAll();
+    }
+
+    @Override
+    public List<Pago> findByBarberiaId(Long barberiaId) {
+        return pagoRepository.findByReservaServicioBarberiaId(barberiaId);
     }
 
     @Override

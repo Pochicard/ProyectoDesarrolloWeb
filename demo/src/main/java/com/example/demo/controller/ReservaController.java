@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.entities.Pago;
 import com.example.demo.entities.Reserva;
 import com.example.demo.exception.RecursoNoEncontradoException;
+import com.example.demo.entities.Rol;
 import com.example.demo.service.EspacioService;
+import com.example.demo.service.ServicioService;
 import com.example.demo.service.PagoService;
 import com.example.demo.service.ReservaService;
 import com.example.demo.service.UsuarioService;
@@ -24,20 +26,23 @@ import com.example.demo.service.UsuarioService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/reservas")
+@RequestMapping("/admin/reservas")
 public class ReservaController {
 
     private final ReservaService reservaService;
     private final UsuarioService usuarioService;
     private final EspacioService espacioService;
     private final PagoService pagoService;
+    private final ServicioService servicioService;
 
     public ReservaController(ReservaService reservaService, UsuarioService usuarioService,
-                             EspacioService espacioService, PagoService pagoService) {
+                             EspacioService espacioService, PagoService pagoService,
+                             ServicioService servicioService) {
         this.reservaService = reservaService;
         this.usuarioService = usuarioService;
         this.espacioService = espacioService;
         this.pagoService = pagoService;
+        this.servicioService = servicioService;
     }
 
     @GetMapping
@@ -56,8 +61,7 @@ public class ReservaController {
     @GetMapping("/nueva")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("reserva", new Reserva());
-        model.addAttribute("usuarios", usuarioService.buscarActivos());
-        model.addAttribute("espacios", espacioService.obtenerActivos());
+        cargarOpciones(model);
         return "reserva_form";
     }
 
@@ -75,12 +79,11 @@ public class ReservaController {
     @PostMapping("/guardar")
     public String guardarReserva(@Valid @ModelAttribute("reserva") Reserva reserva, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("usuarios", usuarioService.buscarActivos());
-            model.addAttribute("espacios", espacioService.obtenerActivos());
+            cargarOpciones(model);
             return "reserva_form";
         }
         reservaService.save(reserva);
-        return "redirect:/reservas";
+        return "redirect:/admin/reservas";
     }
 
     @GetMapping("/editar/{id}")
@@ -90,15 +93,21 @@ public class ReservaController {
             throw new RecursoNoEncontradoException("No existe una reserva con id " + id);
         }
         model.addAttribute("reserva", reserva);
-        model.addAttribute("usuarios", usuarioService.buscarTodos());
-        model.addAttribute("espacios", espacioService.obtenerTodos());
+        cargarOpciones(model);
         return "reserva_form";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarReserva(@PathVariable Long id) {
         reservaService.deleteById(id);
-        return "redirect:/reservas";
+        return "redirect:/admin/reservas";
+    }
+
+    private void cargarOpciones(Model model) {
+        model.addAttribute("usuarios", usuarioService.buscarPorRol(Rol.CLIENTE));
+        model.addAttribute("barberos", usuarioService.buscarPorRol(Rol.BARBERO));
+        model.addAttribute("servicios", servicioService.findAll());
+        model.addAttribute("espacios", espacioService.obtenerActivos());
     }
 
     private Map<Long, Pago> pagosPorReserva() {

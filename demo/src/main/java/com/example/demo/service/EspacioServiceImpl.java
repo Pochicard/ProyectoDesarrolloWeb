@@ -26,6 +26,16 @@ public class EspacioServiceImpl implements EspacioService {
     }
 
     @Override
+    public List<Espacio> obtenerPorBarberia(Long barberiaId) {
+        return espacioRepository.findByBarberiaIdAndActivoTrue(barberiaId);
+    }
+
+    @Override
+    public List<Espacio> obtenerTodosPorBarberia(Long barberiaId) {
+        return espacioRepository.findByBarberiaId(barberiaId);
+    }
+
+    @Override
     public List<Espacio> obtenerPorCapacidadMinima(Integer capacidadMinima) {
         return espacioRepository.buscarPorCapacidadMinima(capacidadMinima);
     }

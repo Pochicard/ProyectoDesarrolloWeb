@@ -2,7 +2,9 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,10 +30,23 @@ public class Usuario {
     @Column(nullable = false, unique = true, length = 120)
     private String correo;
 
+    @NotBlank(message = "La contraseña es obligatoria")
+    @Size(min = 4, message = "La contraseña debe tener al menos 4 caracteres")
+    @Column(nullable = false, length = 100)
+    private String password;
+
     @NotBlank(message = "El teléfono es obligatorio")
     @Pattern(regexp = "^[0-9]{7,15}$", message = "El teléfono solo debe contener números (entre 7 y 15 dígitos)")
     @Column(length = 30)
     private String telefono;
+
+    @NotNull(message = "El rol es obligatorio")
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Rol rol;
+
+    @ManyToOne
+    private Barberia barberia;
 
     @Column(nullable = false)
     private Boolean activo = true;

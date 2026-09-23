@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -22,6 +23,10 @@ public class Espacio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Debe seleccionar una barbería")
+    @ManyToOne(optional = false)
+    private Barberia barberia;
+
     @NotBlank(message = "El nombre es obligatorio")
     @Column(nullable = false, length = 120)
     private String nombre;
@@ -30,11 +35,6 @@ public class Espacio {
     @Positive(message = "La capacidad debe ser mayor a 0")
     @Column(nullable = false)
     private Integer capacidad;
-
-    @NotNull(message = "El precio base es obligatorio")
-    @Positive(message = "El precio base debe ser mayor a 0")
-    @Column(nullable = false)
-    private Double precioBase;
 
     @Column(nullable = false)
     private Boolean activo = true;

@@ -5,7 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.entities.Servicio;
 
+import java.util.List;
+
 @Repository
 public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
-    // Maneja las consultas básicas de los servicios disponibles.
+
+    List<Servicio> findByBarberiaIdAndActivoTrue(Long barberiaId);
+
+    List<Servicio> findByBarberiaId(Long barberiaId);
 }

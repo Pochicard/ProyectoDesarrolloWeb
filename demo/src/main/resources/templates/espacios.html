@@ -5,8 +5,9 @@
     <title>Lista de Espacios</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body class="container mt-5">
-<a th:href="@{/}" class="btn btn-link ps-0">&laquo; Inicio</a>
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+<div class="container">
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Gestión de Espacios</h2>
     <a th:href="@{/admin/espacios/nuevo}" class="btn btn-primary">Nuevo Espacio</a>
@@ -29,6 +30,7 @@
     <thead class="table-dark">
     <tr>
         <th>ID</th>
+        <th>Barbería</th>
         <th>Nombre</th>
         <th>Capacidad</th>
         <th>Estado</th>
@@ -38,6 +40,7 @@
     <tbody>
     <tr th:each="e : ${espacios}">
         <td th:text="${e.id}"></td>
+        <td th:text="${e.barberia.nombre}"></td>
         <td th:text="${e.nombre}"></td>
         <td th:text="${e.capacidad}"></td>
         <td th:text="${e.activo ? 'Activo' : 'Inactivo'}"></td>
@@ -48,11 +51,11 @@
         </td>
     </tr>
     <tr th:if="${#lists.isEmpty(espacios)}">
-        <td colspan="5" class="text-center">No hay espacios registrados.</td>
+        <td colspan="6" class="text-center">No hay espacios registrados.</td>
     </tr>
     </tbody>
 </table>
 
-<a th:href="@{/reservas/nueva}" class="btn btn-secondary">Volver al Formulario de Reservas</a>
+</div>
 </body>
 </html>

@@ -30,6 +30,13 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(BarberiaInactivaException.class)
+    public String manejarBarberiaInactiva(BarberiaInactivaException ex, Model model) {
+        model.addAttribute("mensaje", ex.getMessage());
+        return "error";
+    }
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public String manejarErrorGeneral(Exception ex, Model model) {

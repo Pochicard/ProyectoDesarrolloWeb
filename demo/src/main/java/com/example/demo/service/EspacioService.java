@@ -6,6 +6,8 @@ import java.util.List;
 public interface EspacioService {
     List<Espacio> obtenerTodos();
     List<Espacio> obtenerActivos();
+    List<Espacio> obtenerPorBarberia(Long barberiaId);
+    List<Espacio> obtenerTodosPorBarberia(Long barberiaId);
     List<Espacio> obtenerPorCapacidadMinima(Integer capacidadMinima);
     Espacio guardar(Espacio espacio);
     Espacio obtenerPorId(Long id);

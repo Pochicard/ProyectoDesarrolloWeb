@@ -6,7 +6,8 @@ import com.example.demo.repository.PagoRepository;
 import com.example.demo.repository.ReservaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ReservaServiceImpl implements ReservaService {
@@ -25,35 +26,64 @@ public class ReservaServiceImpl implements ReservaService {
     }
 
     @Override
-    public Collection<Reserva> findAll() {
+    public List<Reserva> findAll() {
         return reservaRepository.findAll();
     }
 
     @Override
-    public Collection<Reserva> findByUsuarioId(Long usuarioId) {
+    public List<Reserva> findByUsuarioId(Long usuarioId) {
         return reservaRepository.findByUsuarioId(usuarioId);
     }
 
     @Override
+    public List<Reserva> findByBarberoId(Long barberoId) {
+        return reservaRepository.findByBarberoId(barberoId);
+    }
+
+    @Override
+    public List<Reserva> findByBarberoIdAndFecha(Long barberoId, LocalDate fecha) {
+        return reservaRepository.findByBarberoIdAndFecha(barberoId, fecha);
+    }
+
+    @Override
+    public List<Reserva> findByBarberiaId(Long barberiaId) {
+        return reservaRepository.findByServicioBarberiaId(barberiaId);
+    }
+
+    @Override
+    public List<Reserva> findByBarberiaIdAndFecha(Long barberiaId, LocalDate fecha) {
+        return reservaRepository.findByServicioBarberiaIdAndFecha(barberiaId, fecha);
+    }
+
+    @Override
     public Reserva save(Reserva reserva) {
-        if (estaOcupado(reserva)) {
+        if (espacioOcupado(reserva)) {
             throw new EspacioNoDisponibleException(
                     "El espacio ya tiene una reserva para esa fecha y hora. Elige otro horario.");
+        }
+        if (barberoOcupado(reserva)) {
+            throw new EspacioNoDisponibleException(
+                    "El barbero ya tiene una reserva para esa fecha y hora. Elige otro horario.");
         }
         return reservaRepository.save(reserva);
     }
 
     @Override
     public void deleteById(Long id) {
-        // El pago tiene una FK obligatoria hacia la reserva: hay que borrarlo antes
-        // o la eliminación de la reserva falla por violación de integridad referencial.
         pagoRepository.findByReservaId(id).ifPresent(pagoRepository::delete);
         reservaRepository.deleteById(id);
     }
 
-    private boolean estaOcupado(Reserva reserva) {
+    private boolean espacioOcupado(Reserva reserva) {
         return reservaRepository
                 .findByEspacioIdAndFechaAndHora(reserva.getEspacio().getId(), reserva.getFecha(), reserva.getHora())
+                .stream()
+                .anyMatch(existente -> !existente.getId().equals(reserva.getId()));
+    }
+
+    private boolean barberoOcupado(Reserva reserva) {
+        return reservaRepository
+                .findByBarberoIdAndFechaAndHora(reserva.getBarbero().getId(), reserva.getFecha(), reserva.getHora())
                 .stream()
                 .anyMatch(existente -> !existente.getId().equals(reserva.getId()));
     }

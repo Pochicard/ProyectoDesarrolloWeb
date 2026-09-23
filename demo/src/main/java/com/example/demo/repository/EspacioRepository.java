@@ -10,8 +10,13 @@ import java.util.List;
 
 @Repository
 public interface EspacioRepository extends JpaRepository<Espacio, Long> {
+
     @Query("SELECT e FROM Espacio e WHERE e.capacidad >= :capacidadMinima")
     List<Espacio> buscarPorCapacidadMinima(@Param("capacidadMinima") Integer capacidadMinima);
 
     List<Espacio> findByActivoTrue();
+
+    List<Espacio> findByBarberiaIdAndActivoTrue(Long barberiaId);
+
+    List<Espacio> findByBarberiaId(Long barberiaId);
 }

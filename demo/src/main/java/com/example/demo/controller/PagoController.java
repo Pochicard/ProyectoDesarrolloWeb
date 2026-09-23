@@ -19,7 +19,7 @@ import com.example.demo.service.ReservaService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/pagos")
+@RequestMapping("/admin/pagos")
 public class PagoController {
 
     private final PagoService pagoService;
@@ -45,7 +45,7 @@ public class PagoController {
                 throw new RecursoNoEncontradoException("No existe una reserva con id " + reservaId);
             }
             pago.setReserva(reserva);
-            pago.setMonto(reserva.getEspacio().getPrecioBase());
+            pago.setMonto(reserva.getServicio().getPrecio());
             pago.setEstado("PENDIENTE");
         }
         model.addAttribute("pago", pago);
@@ -60,7 +60,7 @@ public class PagoController {
             return "pago_form";
         }
         pagoService.save(pago);
-        return "redirect:/pagos";
+        return "redirect:/admin/pagos";
     }
 
     @GetMapping("/editar/{id}")
@@ -77,6 +77,6 @@ public class PagoController {
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Integer id) {
         pagoService.deleteById(id);
-        return "redirect:/pagos";
+        return "redirect:/admin/pagos";
     }
 }

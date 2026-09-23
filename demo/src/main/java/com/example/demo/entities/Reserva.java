@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
@@ -25,9 +26,19 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Debe seleccionar un usuario")
+    @NotNull(message = "Debe seleccionar un cliente")
     @ManyToOne(optional = false)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    @NotNull(message = "Debe seleccionar un barbero")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "barbero_id")
+    private Usuario barbero;
+
+    @NotNull(message = "Debe seleccionar un servicio")
+    @ManyToOne(optional = false)
+    private Servicio servicio;
 
     @NotNull(message = "Debe seleccionar un espacio")
     @ManyToOne(optional = false)
