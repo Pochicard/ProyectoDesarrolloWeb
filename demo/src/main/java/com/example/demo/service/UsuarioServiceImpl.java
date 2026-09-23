@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ResumenRol;
 import com.example.demo.entities.Rol;
 import com.example.demo.entities.Usuario;
 import com.example.demo.repository.UsuarioRepository;
@@ -29,6 +30,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public List<Usuario> buscarPorRol(Rol rol) {
         return repo.findByRolAndActivoTrue(rol);
+    }
+
+    @Override
+    public List<Usuario> buscarTodosPorRol(Rol rol) {
+        return repo.findByRol(rol);
+    }
+
+    @Override
+    public List<ResumenRol> contarUsuariosPorRol() {
+        return repo.contarUsuariosPorRol();
     }
 
     @Override

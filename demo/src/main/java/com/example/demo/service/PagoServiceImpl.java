@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ResumenBarberia;
 import com.example.demo.entities.Pago;
 import com.example.demo.exception.PagoDuplicadoException;
 import com.example.demo.repository.PagoRepository;
@@ -35,6 +36,11 @@ public class PagoServiceImpl implements PagoService {
     @Override
     public List<Pago> findByBarberiaId(Long barberiaId) {
         return pagoRepository.findByReservaServicioBarberiaId(barberiaId);
+    }
+
+    @Override
+    public List<ResumenBarberia> buscarBarberiasConIngresosMayoresA(Double minimo) {
+        return pagoRepository.buscarBarberiasConIngresosMayoresA(minimo);
     }
 
     @Override

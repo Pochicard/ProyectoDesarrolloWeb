@@ -58,8 +58,26 @@ VALUES (8, 4, 1, 1, '2027-03-15', '10:00:00');
 INSERT INTO reserva (usuario_id, barbero_id, servicio_id, espacio_id, fecha, hora)
 VALUES (7, 5, 3, 3, '2027-03-15', '14:30:00');
 
+INSERT INTO reserva (usuario_id, barbero_id, servicio_id, espacio_id, fecha, hora)
+VALUES (7, 4, 3, 2, '2027-03-16', '11:00:00');
+
+INSERT INTO reserva (usuario_id, barbero_id, servicio_id, espacio_id, fecha, hora)
+VALUES (8, 6, 4, 4, '2027-03-16', '15:00:00');
+
+INSERT INTO reserva (usuario_id, barbero_id, servicio_id, espacio_id, fecha, hora)
+VALUES (8, 5, 2, 3, '2027-03-17', '09:00:00');
+
 INSERT INTO pago (reserva_id, monto, metodo_pago, estado)
 VALUES (1, 30000.0, 'Efectivo', 'COMPLETADO');
 
 INSERT INTO pago (reserva_id, monto, metodo_pago, estado)
-VALUES (2, 45000.0, 'Tarjeta de Crédito', 'PENDIENTE');
+VALUES (2, 45000.0, 'Tarjeta de Crédito', 'COMPLETADO');
+
+INSERT INTO pago (reserva_id, monto, metodo_pago, estado)
+VALUES (3, 45000.0, 'Transferencia', 'COMPLETADO');
+
+INSERT INTO pago (reserva_id, monto, metodo_pago, estado)
+VALUES (4, 38000.0, 'Efectivo', 'COMPLETADO');
+
+INSERT INTO pago (reserva_id, monto, metodo_pago, estado)
+VALUES (5, 20000.0, 'Efectivo', 'PENDIENTE');

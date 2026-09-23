@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ResumenRol;
 import com.example.demo.entities.Rol;
 import com.example.demo.entities.Usuario;
 import java.util.List;
@@ -8,6 +9,8 @@ public interface UsuarioService {
     List<Usuario> buscarTodos();
     List<Usuario> buscarActivos();
     List<Usuario> buscarPorRol(Rol rol);
+    List<Usuario> buscarTodosPorRol(Rol rol);
+    List<ResumenRol> contarUsuariosPorRol();
     List<Usuario> buscarBarberosDeBarberia(Long barberiaId);
     List<Usuario> buscarTodosLosBarberosDeBarberia(Long barberiaId);
     Usuario buscarPorId(Long id);

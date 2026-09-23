@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entities.Rol;
 import com.example.demo.entities.Usuario;
@@ -30,8 +31,15 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("usuarios", service.buscarTodos());
+    public String listar(@RequestParam(required = false) Rol rol, Model model) {
+        if (rol != null) {
+            model.addAttribute("usuarios", service.buscarTodosPorRol(rol));
+        } else {
+            model.addAttribute("usuarios", service.buscarTodos());
+        }
+        model.addAttribute("rolFiltro", rol);
+        model.addAttribute("roles", Rol.values());
+        model.addAttribute("resumenRoles", service.contarUsuariosPorRol());
         return "usuarios";
     }
 

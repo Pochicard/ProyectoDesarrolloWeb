@@ -27,6 +27,9 @@
             <li class="nav-item" th:if="${session.usuario.rol.name() == 'ADMINISTRADOR'}">
                 <a class="nav-link" th:href="@{/admin/pagos}">Pagos</a>
             </li>
+            <li class="nav-item" th:if="${session.usuario.rol.name() == 'ADMINISTRADOR'}">
+                <a class="nav-link" th:href="@{/admin/reportes}">Reportes</a>
+            </li>
 
             <li class="nav-item" th:if="${session.usuario.rol.name() == 'GERENTE'}">
                 <a class="nav-link" th:href="@{/gerente}">Mi barbería</a>
