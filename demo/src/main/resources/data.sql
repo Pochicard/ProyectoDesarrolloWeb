@@ -29,16 +29,16 @@ INSERT INTO usuario (nombre, correo, password, telefono, rol, barberia_id, activ
 VALUES ('Julián Mora', 'julian@gmail.com', 'barbero123', '3005556677', 'BARBERO', 2, true);
 
 INSERT INTO usuario (nombre, correo, password, telefono, rol, barberia_id, activo)
-VALUES ('Juan Pérez', 'juan@gmail.com', 'cliente123', '3101112233', 'CLIENTE', NULL, true);
+VALUES ('Valentina Ruiz', 'valentina@gmail.com', 'cliente123', '3106678899', 'CLIENTE', NULL, true);
 
 INSERT INTO usuario (nombre, correo, password, telefono, rol, barberia_id, activo)
-VALUES ('María López', 'maria@gmail.com', 'cliente123', '3102223344', 'CLIENTE', NULL, true);
+VALUES ('Mateo Cárdenas', 'mateo@gmail.com', 'cliente123', '3117745566', 'CLIENTE', NULL, true);
 
 INSERT INTO usuario (nombre, correo, password, telefono, rol, barberia_id, activo)
-VALUES ('Carlos Díaz', 'carlos@gmail.com', 'cliente123', '3103334455', 'CLIENTE', NULL, true);
+VALUES ('Isabella Ortiz', 'isabella@gmail.com', 'cliente123', '3123312244', 'CLIENTE', NULL, true);
 
 INSERT INTO usuario (nombre, correo, password, telefono, rol, barberia_id, activo)
-VALUES ('Ana Torres', 'ana@gmail.com', 'cliente123', '3104445566', 'CLIENTE', NULL, true);
+VALUES ('Samuel Peña', 'samuel@gmail.com', 'cliente123', '3139986677', 'CLIENTE', NULL, true);
 
 INSERT INTO espacio (barberia_id, nombre, capacidad, activo)
 VALUES (1, 'Silla 1', 1, true);
